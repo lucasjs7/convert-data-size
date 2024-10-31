@@ -1,0 +1,21 @@
+{
+	"autoload": {
+		"psr-4": {
+			"Lucasjs7\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Lucasjs7\\": "src/",
+			"Tests\\": "tests/"
+		}
+	},
+	"require-dev": {
+		"pestphp/pest": "^2.34"
+	},
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		}
+	}
+}
