@@ -6,6 +6,8 @@ class ConvertDataSize {
 
     public static function string(
         string $value,
+        string $toSize = 'B',
+        ?int   $scale = null,
     ) {
 
         preg_match('/^(\d+)\s*(\D+)$/', $value, $matches);
@@ -21,15 +23,26 @@ class ConvertDataSize {
             return false;
         }
 
-        $bytes = static::dataBytes(
-            size: $fSize,
-        );
+        $fromBytes = static::dataBytes(size: $fSize);
 
-        if ($bytes === false) {
+        if ($fromBytes === false) {
             return false;
         }
 
-        return bcmul($fValue, $bytes);
+        $total = bcmul($fValue, $fromBytes, $scale);
+
+        if ($toSize !== 'B') {
+
+            $toBytes = static::dataBytes(size: $toSize);
+
+            if ($toBytes === false) {
+                return false;
+            }
+
+            $total = bcdiv($total, $toBytes, $scale);
+        }
+
+        return $total;
     }
 
     public static function dataBytes(
