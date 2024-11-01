@@ -8,7 +8,7 @@ class ConvertDataSize {
         string $value,
         string $toSize = 'B',
         ?int   $scale = null,
-    ) {
+    ): string|false {
 
         preg_match('/^(\d+)\s*(\D+)$/', $value, $matches);
 
