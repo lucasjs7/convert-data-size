@@ -6,7 +6,6 @@ class ConvertDataSize {
 
     public static function string(
         string $value,
-        int    $base = 2,
     ) {
 
         preg_match('/^(\d+)\s*(\D+)$/', $value, $matches);
@@ -22,51 +21,55 @@ class ConvertDataSize {
             return false;
         }
 
-        $exp = static::exp(
+        $bytes = static::dataBytes(
             size: $fSize,
-            base: $base,
         );
 
-        if ($exp === false) {
+        if ($bytes === false) {
             return false;
         }
 
-        return ($fValue * pow($base, $exp));
+        return bcmul($fValue, $bytes);
     }
 
-    public static function exp(
-        string $size,
-        int    $base,
-    ): int|false {
-        return  match ($base) {
-            2 => match ($size) {
-                'B'   => 0,
-                'KiB' => 10,
-                'MiB' => 20,
-                'GiB' => 30,
-                'TiB' => 40,
-                'PiB' => 50,
-                'EiB' => 60,
-                'ZiB' => 70,
-                'YiB' => 80,
-                default => false,
-            },
-            10 => match ($size) {
-                'B'  => 0,
-                'kB' => 3,
-                'MB' => 6,
-                'GB' => 9,
-                'TB' => 12,
-                'PB' => 15,
-                'EB' => 18,
-                'ZB' => 21,
-                'YB' => 24,
-                default => false,
-            },
+    public static function dataBytes(
+        string $size
+    ): string|false {
+        return match ($size) {
+            'B'     => '1',
+            'kbit'  => '125',
+            'Kbit'  => '128',
+            'kB'    => '1000',
+            'KiB'   => '1024',
+            'Mbit'  => '125000',
+            'Mibit' => '131072',
+            'MB'    => '1000000',
+            'MiB'   => '1048576',
+            'Gbit'  => '125000000',
+            'Gibit' => '134217728',
+            'GB'    => '1000000000',
+            'GiB'   => '1073741824',
+            'Tbit'  => '125000000000',
+            'Tibit' => '137438953472',
+            'TB'    => '1000000000000',
+            'TiB'   => '1099511627776',
+            'Pbit'  => '125000000000000',
+            'Pibit' => '140737488355328',
+            'PB'    => '1000000000000000',
+            'PiB'   => '1125899906842624',
+            'Ebit'  => '125000000000000000',
+            'Eibit' => '144115188075855872',
+            'EB'    => '1000000000000000000',
+            'EiB'   => '1152921504606846976',
+            'Zbit'  => '125000000000000000000',
+            'Zibit' => '147573952589676412928',
+            'ZB'    => '1000000000000000000000',
+            'ZiB'   => '1180591620717411303424',
+            'Ybit'  => '125000000000000000000000',
+            'Yibit' => '151115727451828646838272',
+            'YB'    => '1000000000000000000000000',
+            'YiB'   => '1208925819614629174706176',
             default => false,
         };
-    }
-
-    public static function dataBit(): int|false {
     }
 }
