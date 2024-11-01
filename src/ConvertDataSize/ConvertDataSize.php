@@ -39,7 +39,8 @@ class ConvertDataSize {
                 return false;
             }
 
-            $total = bcdiv($total, $toBytes, $scale);
+            $toScale = $scale ?? 2;
+            $total = bcdiv($total, $toBytes, $toScale);
         }
 
         return $total;
