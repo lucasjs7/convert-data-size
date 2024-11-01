@@ -51,7 +51,7 @@ class ConvertDataSize {
         return match ($size) {
             'B'     => '1',
             'kbit'  => '125',
-            'Kbit'  => '128',
+            'Kibit' => '128',
             'kB'    => '1000',
             'KiB'   => '1024',
             'Mbit'  => '125000',
