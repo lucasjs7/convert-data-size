@@ -4,7 +4,7 @@ namespace Lucasjs7\ConvertDataSize;
 
 class ConvertDataSize {
 
-    public static function string(
+    public static function parser(
         string $value,
         string $toSize = 'B',
         ?int   $scale = null,
