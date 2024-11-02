@@ -18,16 +18,9 @@ class ConvertDataSize {
             return false;
         }
 
-        $fValue = $matches[1];
-        $fFromSize = $matches[2];
-
-        if (count($matches) === 4) {
-            $fFromSize = $matches[3];
-        }
-
         return static::unit(
-            value: $fValue,
-            fromSize: $fFromSize,
+            value: $matches[1],
+            fromSize: $matches[3],
             toSize: $toSize,
             scale: $scale,
         );
