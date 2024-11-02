@@ -12,15 +12,22 @@ class ConvertDataSize {
         ?int   $scale = 2,
     ): string|false {
 
-        preg_match('/^(\d+)\s*(\D+)$/', $value, $matches);
+        preg_match('/^(\d+(\.\d+)?)\s*(\D+)$/', $value, $matches);
 
         if (empty($matches)) {
             return false;
         }
 
+        $fValue = $matches[1];
+        $fFromSize = $matches[2];
+
+        if (count($matches) === 4) {
+            $fFromSize = $matches[3];
+        }
+
         return static::unit(
-            value: $matches[1],
-            fromSize: $matches[2],
+            value: $fValue,
+            fromSize: $fFromSize,
             toSize: $toSize,
             scale: $scale,
         );
