@@ -16,14 +16,28 @@ class ConvertDataSize {
             return false;
         }
 
-        $fValue = filter_var($matches[1], FILTER_VALIDATE_INT);
-        $fSize  = $matches[2];
+        return static::unit(
+            value: $matches[1],
+            fromSize: $matches[2],
+            toSize: $toSize,
+            scale: $scale,
+        );
+    }
+
+    public static function unit(
+        string $value,
+        string $fromSize = 'B',
+        string $toSize = 'B',
+        ?int   $scale = null,
+    ): string|false {
+
+        $fValue = filter_var($value, FILTER_VALIDATE_INT);
 
         if ($fValue === false) {
             return false;
         }
 
-        $fromBytes = static::dataBytes(size: $fSize);
+        $fromBytes = static::dataBytes(size: $fromSize);
 
         if ($fromBytes === false) {
             return false;
