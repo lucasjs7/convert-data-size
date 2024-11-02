@@ -2,12 +2,14 @@
 
 namespace Lucasjs7\ConvertDataSize;
 
+use Exception;
+
 class ConvertDataSize {
 
     public static function parser(
         string $value,
         string $toSize = 'B',
-        ?int   $scale = null,
+        ?int   $scale = 2,
     ): string|false {
 
         preg_match('/^(\d+)\s*(\D+)$/', $value, $matches);
@@ -28,36 +30,34 @@ class ConvertDataSize {
         string $value,
         string $fromSize = 'B',
         string $toSize = 'B',
-        ?int   $scale = null,
+        ?int   $scale = 2,
     ): string|false {
 
-        $fValue = filter_var($value, FILTER_VALIDATE_INT);
+        try {
 
-        if ($fValue === false) {
-            return false;
-        }
+            $fromBytes = static::dataBytes(size: $fromSize);
 
-        $fromBytes = static::dataBytes(size: $fromSize);
-
-        if ($fromBytes === false) {
-            return false;
-        }
-
-        $total = bcmul($fValue, $fromBytes, $scale);
-
-        if ($toSize !== 'B') {
-
-            $toBytes = static::dataBytes(size: $toSize);
-
-            if ($toBytes === false) {
+            if ($fromBytes === false) {
                 return false;
             }
 
-            $toScale = $scale ?? 2;
-            $total = bcdiv($total, $toBytes, $toScale);
-        }
+            $total = bcmul($value, $fromBytes, $scale);
 
-        return $total;
+            if ($toSize !== 'B') {
+
+                $toBytes = static::dataBytes(size: $toSize);
+
+                if ($toBytes === false) {
+                    return false;
+                }
+
+                $total = bcdiv($total, $toBytes, $scale);
+            }
+
+            return $total;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public static function dataBytes(
