@@ -3,7 +3,7 @@
 use Lucasjs7\ConvertDataSize\ConvertDataSize;
 
 it('Unit#KiB->MB', function () {
-    expect('78384470540.63')->toBe(ConvertDataSize::unit('76547334512342', 'KiB', 'MB'));
+    expect('78384470.54')->toBe(ConvertDataSize::unit('76547334512.342', 'KiB', 'MB'));
 });
 
 it('Unit#EB->GB', function () {
