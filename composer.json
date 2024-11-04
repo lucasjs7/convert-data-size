@@ -1,4 +1,15 @@
 {
+	"name": "lucasjs7/convert-data-size",
+	"description": "This is a simple and lightweight library that aims to convert computational data using PHP language.",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "lucasjs7",
+			"email": "lucasjs.developer@gmail.com",
+			"homepage": "https://github.com/lucasjs7",
+			"role": "Developer"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"Lucasjs7\\": "src/"
