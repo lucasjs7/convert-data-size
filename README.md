@@ -3,6 +3,14 @@ Convert Data Size for PHP
 
 This is a simple and lightweight library that aims to convert computational data using PHP language.
 
+
+Install using composer
+===
+
+```bash
+composer require lucasjs7/convert-data-size
+```
+
 Available functions
 ===
 
